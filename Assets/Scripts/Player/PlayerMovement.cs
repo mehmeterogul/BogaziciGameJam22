@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!canWalk) return;
+
         Move();
     }
 
@@ -65,11 +67,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            delta = Vector3.zero;
-            normalizedDelta = Vector3.zero;
-
+            SetMovementVectorsZero();
             animator.SetBool("isWalking", false);
         }
+    }
+
+    private void SetMovementVectorsZero()
+    {
+        delta = Vector3.zero;
+        normalizedDelta = Vector3.zero;
     }
 
     void SetDeltaVariables()
@@ -85,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("NPC"))
         {
-            moveSpeed = moveSpeed / 2;
+            moveSpeed = moveSpeed / 2f;
             animator.SetBool("isRobbing", true);
         }
     }
@@ -107,5 +113,7 @@ public class PlayerMovement : MonoBehaviour
     public void PlayerCantWalk()
     {
         canWalk = false;
+        SetMovementVectorsZero();
+        animator.SetBool("isWalking", false);
     }
 }

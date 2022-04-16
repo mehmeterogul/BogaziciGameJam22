@@ -47,6 +47,7 @@ public class NPCTriggerHandler : MonoBehaviour
                 BagContent bag = GetComponent<BagContent>();
                 NPCRandomizer npcType = GetComponent<NPCRandomizer>();
 
+                gameManager.ChangeGameStateToRobbing();
                 other.gameObject.GetComponent<PlayerRobbingManager>().StartRobbing(bag, npcType.GetNPCTypeIndex(), npcType.GetNPCColor());
             }
         }
