@@ -8,10 +8,28 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float rotationSpeed;
 
+    public Animator animator;
+
+    Vector3 delta;
+    Vector3 temp;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
+    }
+
+    void FixedUpdate()
+    {
+        if (temp.x > 0.05f || temp.x < -0.05f || temp.z > 0.05f || temp.z < -0.05f)
+        {
+            transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation,
+                Quaternion.LookRotation(temp, Vector3.up),
+                rotationSpeed * Time.deltaTime
+                );
+        }
     }
 
     // Update is called once per frame
@@ -24,21 +42,24 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetMouseButton(0))
         {
-            Vector3 delta = Input.mousePosition - lastMousePosition;
+            delta = Input.mousePosition - lastMousePosition;
 
-            Vector3 temp = delta.normalized;
+            temp = delta.normalized;
             temp.z = temp.y;
             temp.y = 0;
 
-            if (delta.x > 0.05f || delta.x < -0.05f || delta.y > 0.05f || delta.y < -0.05f)
+            if (temp.x > 0.05f || temp.x < -0.05f || temp.z > 0.05f || temp.z < -0.05f)
             {
-                transform.Translate(Vector3.forward *  moveSpeed * Time.deltaTime);
-                transform.rotation = Quaternion.RotateTowards(
-                    transform.rotation,
-                    Quaternion.LookRotation(temp, Vector3.up),
-                    rotationSpeed * Time.deltaTime
-                    );
+                animator.SetBool("isWalking", true);
             }
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            delta = Vector3.zero;
+            temp = Vector3.zero;
+
+            animator.SetBool("isWalking", false);
         }
     }
 }
