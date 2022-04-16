@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class PlayerRobbingManager : MonoBehaviour
 {
-    [SerializeField] Image panel;
+    [SerializeField] GameObject playerCanvas;
     [SerializeField] GameObject bag;
 
     public void StartRobbing(BagContent bagContent, int npcTypeIndex, string npcMaterialName)
@@ -19,6 +19,11 @@ public class PlayerRobbingManager : MonoBehaviour
 
     void StartBagPasswordStateAnimation()
     {
+        StartPanelAnimation();
+    }
 
+    void StartPanelAnimation()
+    {
+        playerCanvas.transform.DOLocalMove(new Vector3(0, 10.2f, -6.88f), 1f);
     }
 }
