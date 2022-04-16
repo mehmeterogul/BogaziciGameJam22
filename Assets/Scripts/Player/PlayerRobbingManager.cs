@@ -19,11 +19,17 @@ public class PlayerRobbingManager : MonoBehaviour
 
     void StartBagPasswordStateAnimation()
     {
-        StartPanelAnimation();
+        PanelAnimation();
+        Invoke("BagAnimation", 1f);
     }
 
-    void StartPanelAnimation()
+    void PanelAnimation()
     {
         playerCanvas.transform.DOLocalMove(new Vector3(0, 10.2f, -6.88f), 1f);
+    }
+    
+    void BagAnimation()
+    {
+        bag.transform.DOLocalMove(new Vector3(0, 0.075f, 0.84f), 0.5f);
     }
 }
