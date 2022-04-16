@@ -17,16 +17,12 @@ public class NPCRandomizer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // activate random npc objects
         choosedObjectIndex = Random.Range(0, npcObjects.Length);
         npcObjects[choosedObjectIndex].SetActive(true);
 
+        // set random material to the choosed npc object
         choosedColorIndex = Random.Range(0, npcMaterials.Length);
         npcObjects[choosedObjectIndex].GetComponent<MaterialAssigner>().AssignMaterial(npcMaterials[choosedColorIndex]);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
