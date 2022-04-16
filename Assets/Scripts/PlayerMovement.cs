@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Vector3 lastMousePosition;
+    public Animator animator;
+
+    [Header("Speed Values")]
     [SerializeField] float moveSpeed;
     [SerializeField] float rotationSpeed;
 
-    public Animator animator;
-
+    [Header("Movement Vector Values")]
+    Vector3 lastMousePosition;
     Vector3 delta;
-    Vector3 temp;
+    Vector3 normalizedDelta;
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +23,18 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (temp.x > 0.05f || temp.x < -0.05f || temp.z > 0.05f || temp.z < -0.05f)
+        Move();
+    }
+
+    void Move()
+    {
+        // if normalized delta axis values bigger than 0.05f, then move
+        if (normalizedDelta.x > 0.05f || normalizedDelta.x < -0.05f || normalizedDelta.z > 0.05f || normalizedDelta.z < -0.05f)
         {
             transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation,
-                Quaternion.LookRotation(temp, Vector3.up),
+                Quaternion.LookRotation(normalizedDelta, Vector3.up),
                 rotationSpeed * Time.deltaTime
                 );
         }
@@ -42,13 +50,9 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetMouseButton(0))
         {
-            delta = Input.mousePosition - lastMousePosition;
+            SetDeltaVariables();
 
-            temp = delta.normalized;
-            temp.z = temp.y;
-            temp.y = 0;
-
-            if (temp.x > 0.05f || temp.x < -0.05f || temp.z > 0.05f || temp.z < -0.05f)
+            if (normalizedDelta.x > 0.05f || normalizedDelta.x < -0.05f || normalizedDelta.z > 0.05f || normalizedDelta.z < -0.05f)
             {
                 animator.SetBool("isWalking", true);
             }
@@ -57,9 +61,18 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             delta = Vector3.zero;
-            temp = Vector3.zero;
+            normalizedDelta = Vector3.zero;
 
             animator.SetBool("isWalking", false);
         }
+    }
+
+    void SetDeltaVariables()
+    {
+        delta = Input.mousePosition - lastMousePosition;
+
+        normalizedDelta = delta.normalized;
+        normalizedDelta.z = normalizedDelta.y;
+        normalizedDelta.y = 0;
     }
 }
