@@ -18,10 +18,15 @@ public class NPCTriggerHandler : MonoBehaviour
         {
             if(circleSprite.fillAmount > 0)
             {
-                currentFillValue -= fillRate;
+                currentFillValue -= (fillRate * 3);
                 UpdateCircleSpriteFillAmounth();
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        canDecrease = false;
     }
 
     private void OnTriggerStay(Collider other)
@@ -39,8 +44,6 @@ public class NPCTriggerHandler : MonoBehaviour
                 other.gameObject.GetComponent<PlayerRobbingManager>().StartRobbing(bag, npcType.GetNPCTypeIndex(), npcType.GetNPCColor());
             }
         }
-
-        canDecrease = false;
     }
 
     private void OnTriggerExit(Collider other)
