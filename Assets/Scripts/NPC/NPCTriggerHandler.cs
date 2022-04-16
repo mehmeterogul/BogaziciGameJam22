@@ -11,6 +11,12 @@ public class NPCTriggerHandler : MonoBehaviour
     [SerializeField] float currentFillValue = 0f;
 
     bool canDecrease = false;
+    GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
 
     private void Update()
     {
@@ -36,7 +42,7 @@ public class NPCTriggerHandler : MonoBehaviour
             currentFillValue += fillRate;
             UpdateCircleSpriteFillAmounth();
 
-            if(currentFillValue == maxFillValue)
+            if(currentFillValue == maxFillValue && gameManager.gameState == GameManager.STATE.WALKING)
             {
                 BagContent bag = GetComponent<BagContent>();
                 NPCRandomizer npcType = GetComponent<NPCRandomizer>();

@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 delta;
     Vector3 normalizedDelta;
 
+    bool canWalk = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!canWalk) return;
+
         if(Input.GetMouseButtonDown(0))
         {
             lastMousePosition = Input.mousePosition;
@@ -93,5 +97,15 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = moveSpeedAtStart;
             animator.SetBool("isRobbing", false);
         }
+    }
+
+    public void PlayerCanWalk()
+    {
+        canWalk = true;
+    }
+
+    public void PlayerCantWalk()
+    {
+        canWalk = false;
     }
 }
