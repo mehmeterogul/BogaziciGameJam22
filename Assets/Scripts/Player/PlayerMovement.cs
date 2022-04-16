@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Speed Values")]
     [SerializeField] float moveSpeed;
     [SerializeField] float rotationSpeed;
+    float moveSpeedAtStart;
 
     [Header("Movement Vector Values")]
     Vector3 lastMousePosition;
@@ -18,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        moveSpeedAtStart = moveSpeed;
     }
 
     void FixedUpdate()
@@ -74,5 +75,23 @@ public class PlayerMovement : MonoBehaviour
         normalizedDelta = delta.normalized;
         normalizedDelta.z = normalizedDelta.y;
         normalizedDelta.y = 0;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("NPC"))
+        {
+            moveSpeed = moveSpeed / 2;
+            animator.SetBool("isRobbing", true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("NPC"))
+        {
+            moveSpeed = moveSpeedAtStart;
+            animator.SetBool("isRobbing", false);
+        }
     }
 }
