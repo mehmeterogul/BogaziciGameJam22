@@ -25,4 +25,14 @@ public class NPCRandomizer : MonoBehaviour
         choosedColorIndex = Random.Range(0, npcMaterials.Length);
         npcObjects[choosedObjectIndex].GetComponent<MaterialAssigner>().AssignMaterial(npcMaterials[choosedColorIndex]);
     }
+
+    public int GetNPCTypeIndex()
+    {
+        return choosedObjectIndex;
+    }
+
+    public string GetNPCColor()
+    {
+        return npcMaterials[choosedColorIndex].name;
+    }
 }
