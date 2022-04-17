@@ -16,8 +16,10 @@ public class PlayerRobbingManager : MonoBehaviour
     [SerializeField] RectTransform passwordPick;
     [SerializeField] Image stage1Image;
     [SerializeField] Image stage2Image;
+    [SerializeField] Sprite defaultImage;
     [SerializeField] Sprite[] colorSprites;
     [SerializeField] Sprite[] shapeSprites;
+    [SerializeField] GameObject backButton;
 
     int npcTypeIndex = 0;
     int npcColorIndex = 0;
@@ -28,6 +30,7 @@ public class PlayerRobbingManager : MonoBehaviour
     Camera mainCamera;
 
     List<Item> collectedItems = new List<Item>();
+    [SerializeField] Inventory inventory;
 
     [Header("Stress Bar")]
     [SerializeField] Image stressBarSprite;
@@ -41,6 +44,8 @@ public class PlayerRobbingManager : MonoBehaviour
     {
         mainCamera = Camera.main;
         currentFillValue = maxFillValue;
+        inventory = GetComponent<Inventory>();
+        backButton.SetActive(false);
     }
 
     void Update()
@@ -58,6 +63,11 @@ public class PlayerRobbingManager : MonoBehaviour
                 UpdateStressBarFillAmounth();
             }
         }
+
+        if(currentFillValue < 0.1f)
+        {
+            RobbingFailed();
+        }
     }
 
     public void StartRobbing(int npcTypeIndex, int npcColorIndex)
@@ -65,8 +75,29 @@ public class PlayerRobbingManager : MonoBehaviour
         this.npcColorIndex = npcColorIndex;
         this.npcTypeIndex = npcTypeIndex;
 
+        currentFillValue = maxFillValue;
+        UpdateStressBarFillAmounth();
+
         StartBagPasswordStateAnimation();
         Invoke("CanDecrease", 1f);
+    }
+
+    void RobbingFailed()
+    {
+        canDecrease = false;
+        backButton.SetActive(false);
+        collectedItems.Clear();
+        RobbingStoppedAnimation();
+        FindObjectOfType<GameManager>().ChangeGameStateToWalking();
+    }
+
+    void RobbingSuccess()
+    {
+        canDecrease = false;
+        inventory.AddItem(collectedItems);
+        collectedItems.Clear();
+        RobbingStoppedAnimation();
+        FindObjectOfType<GameManager>().ChangeGameStateToWalking();
     }
 
     void CanDecrease()
@@ -84,9 +115,14 @@ public class PlayerRobbingManager : MonoBehaviour
         }
         else
         {
-            currentFillValue -= 10f;
-            UpdateStressBarFillAmounth();
+            DecreaseStressBarValue(20f);
         }
+    }
+
+    private void DecreaseStressBarValue(float value)
+    {
+        currentFillValue -= value;
+        UpdateStressBarFillAmounth();
     }
 
     public void SecondPasswordStagePassed(int value)
@@ -99,8 +135,7 @@ public class PlayerRobbingManager : MonoBehaviour
         }
         else
         {
-            currentFillValue -= 10f;
-            UpdateStressBarFillAmounth();
+            DecreaseStressBarValue(20f);
         }
     }
 
@@ -115,14 +150,34 @@ public class PlayerRobbingManager : MonoBehaviour
         playerCanvas.transform.DOLocalMove(new Vector3(0, 10.2f, -6.88f), 1f);
     }
     
+    void PanelCloseAnimation()
+    {
+        playerCanvas.transform.DOLocalMove(new Vector3(0, 9.13f, -8.72f), 1f);
+    }
+
     void BagAppearAnimation()
     {
         bag.transform.DOLocalMove(new Vector3(0, 0.075f, 0.84f), 0.5f);
     }
 
+    void BagResetAnimation()
+    {
+        bag.transform.DOLocalMove(new Vector3(0, 1f, 0.84f), 1f);
+    }
+
+    void ResetBagPosition()
+    {
+        bag.transform.position = new Vector3(0, 0.58f, 0.84f);
+    }
+
     void PasswordSwitchAnimation()
     {
         passwordPick.DOLocalMoveX(-540, 0.5f);
+    }
+
+    void PasswordSwitchPanelReset()
+    {
+        passwordPick.DOLocalMoveX(0, 0.5f);
     }
 
     void CheckPasswordCorrect()
@@ -131,16 +186,23 @@ public class PlayerRobbingManager : MonoBehaviour
         {
             OpenSuitcase();
             RandomizeObjects();
+            Invoke("ActivateBackButton", 0.5f);
         }
-        else
-        {
-            Debug.Log("Yanlýþ");
-        }
+    }
+
+    void ActivateBackButton()
+    {
+        backButton.SetActive(true);
     }
 
     void OpenSuitcase()
     {
         bagCover.DORotate(new Vector3(-200, 0, 0), 0.5f);
+    }
+
+    void CloseSuitcase()
+    {
+        bagCover.localRotation = new Quaternion(0, 0, 0, 0);
     }
 
     void RandomizeObjects()
@@ -161,6 +223,7 @@ public class PlayerRobbingManager : MonoBehaviour
             {
                 AddItemToList(selection.GetComponent<Item>());
                 selection.gameObject.SetActive(false);
+                DecreaseStressBarValue(55f);
             }
         }
     }
@@ -173,5 +236,27 @@ public class PlayerRobbingManager : MonoBehaviour
     public void UpdateStressBarFillAmounth()
     {
         stressBarSprite.fillAmount = currentFillValue / maxFillValue;
+    }
+
+    void RobbingStoppedAnimation()
+    {
+        ResetAnimations();
+        currentFillValue = maxFillValue;
+    }
+
+    public void BackButton()
+    {
+        RobbingSuccess();
+        backButton.SetActive(false);
+    }
+
+    void ResetAnimations()
+    {
+        PanelCloseAnimation();
+        BagResetAnimation();
+        PasswordSwitchPanelReset();
+        Invoke("CloseSuitcase", 2f);
+        stage1Image.sprite = defaultImage;
+        stage2Image.sprite = defaultImage;
     }
 }

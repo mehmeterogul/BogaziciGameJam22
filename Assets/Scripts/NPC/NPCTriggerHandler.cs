@@ -11,18 +11,19 @@ public class NPCTriggerHandler : MonoBehaviour
     [SerializeField] float currentFillValue = 0f;
 
     bool canDecrease = false;
+    bool canTrigger = true;
 
     GameManager gameManager;
 
     bool canDestroy = false;
 
-    private void Start()
+    void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-        Invoke("SetCanDestroyTrue", 2f);
+        Invoke("SetCanDestroyTrue", 5f);
     }
 
-    private void Update()
+    void Update()
     {
         if(canDecrease)
         {
@@ -45,16 +46,11 @@ public class NPCTriggerHandler : MonoBehaviour
         {
             canDecrease = false;
         }
-
-        if(canDestroy && other.gameObject.CompareTag("Wall"))
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if(other.gameObject.CompareTag("Player") && canTrigger)
         {
             currentFillValue += fillRate;
             UpdateCircleSpriteFillAmounth();
@@ -65,6 +61,10 @@ public class NPCTriggerHandler : MonoBehaviour
 
                 gameManager.ChangeGameStateToRobbing();
                 other.gameObject.GetComponent<PlayerRobbingManager>().StartRobbing(npcType.GetNPCTypeIndex(), npcType.GetNPCColor());
+
+                canTrigger = false;
+                currentFillValue = 0;
+                UpdateCircleSpriteFillAmounth();
             }
         }
     }
@@ -72,6 +72,11 @@ public class NPCTriggerHandler : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         canDecrease = true;
+
+        if (canDestroy && other.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void UpdateCircleSpriteFillAmounth()

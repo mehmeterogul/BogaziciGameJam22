@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 5186518176240676418}
   - component: {fileID: 1027839630889839915}
   - component: {fileID: 5186518176240676429}
+  - component: {fileID: 990020179093415854}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -251,11 +252,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 810be0fbef6927845b3c813c6e40f7e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectRandomizer: {fileID: 0}
   playerCanvas: {fileID: 0}
   bag: {fileID: 0}
+  bagCover: {fileID: 0}
   passwordPick: {fileID: 0}
   stage1Image: {fileID: 0}
   stage2Image: {fileID: 0}
+  defaultImage: {fileID: 21300000, guid: 241a674bd2bf74d47becca466e4abfcc, type: 3}
   colorSprites:
   - {fileID: 21300000, guid: 35f67f4941b25e84c8cd79362da76561, type: 3}
   - {fileID: 21300000, guid: fc48b8ff75736ea40a97f4b607b4be70, type: 3}
@@ -265,6 +269,24 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 2ba839dfe2b653649a0085c0830f392d, type: 3}
   - {fileID: 21300000, guid: be29dbf60d4ff5b439182655b050bdeb, type: 3}
   - {fileID: 21300000, guid: dac527020bafcb446afe3b366f421758, type: 3}
+  backButton: {fileID: 0}
+  inventory: {fileID: 0}
+  stressBarSprite: {fileID: 0}
+  emptyRate: 0.1
+  maxFillValue: 300
+  currentFillValue: 0
+--- !u!114 &990020179093415854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1027839630889839912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a6a6851493ee454c8352e519693b7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1062840394053269597
 GameObject:
   m_ObjectHideFlags: 0

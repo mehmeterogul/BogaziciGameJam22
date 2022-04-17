@@ -16,7 +16,7 @@ public class NPCSpawner : MonoBehaviour
     void Start()
     {
         SpawnNPC();
-        Invoke("SpawnNPC", 2f);
+        Invoke("SpawnNPC", 3f);
         nextTimeToSpawn = Time.time + spawnTime;
     }
 

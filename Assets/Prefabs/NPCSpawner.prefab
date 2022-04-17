@@ -88,7 +88,7 @@ MonoBehaviour:
   - {fileID: 6756656612285281535}
   npcPrefab: {fileID: 5853670212893456603, guid: e14d17b3fd7f49a41829c31151b84798,
     type: 3}
-  spawnTime: 15
+  spawnTime: 10
 --- !u!1 &6756656611858803200
 GameObject:
   m_ObjectHideFlags: 0
