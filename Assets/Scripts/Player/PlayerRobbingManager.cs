@@ -34,6 +34,8 @@ public class PlayerRobbingManager : MonoBehaviour
 
     [Header("Stress Bar")]
     [SerializeField] Image stressBarSprite;
+    [SerializeField] Color stressBarDefaultColor;
+    [SerializeField] Color stressBarWarningColor;
     [SerializeField] float emptyRate = 0.1f;
     [SerializeField] float maxFillValue = 300f;
     [SerializeField] float currentFillValue = 0f;
@@ -64,6 +66,12 @@ public class PlayerRobbingManager : MonoBehaviour
             }
         }
 
+        if(currentFillValue <= maxFillValue * 0.25f)
+        {
+            backButton.GetComponent<Animator>().SetBool("isHurry", true);
+            stressBarSprite.color = stressBarWarningColor;
+        }
+
         if(currentFillValue < 0.1f)
         {
             RobbingFailed();
@@ -75,6 +83,9 @@ public class PlayerRobbingManager : MonoBehaviour
         this.npcColorIndex = npcColorIndex;
         this.npcTypeIndex = npcTypeIndex;
 
+        backButton.GetComponent<Animator>().SetBool("isHurry", false);
+        stressBarSprite.color = stressBarDefaultColor;
+        
         currentFillValue = maxFillValue;
         UpdateStressBarFillAmounth();
 

@@ -94,6 +94,11 @@ public class PlayerMovement : MonoBehaviour
             moveSpeed = moveSpeed / 2.5f;
             animator.SetBool("isRobbing", true);
         }
+
+        if (other.gameObject.CompareTag("SellArea"))
+        {
+            GetComponent<Inventory>().SellAll();
+        }
     }
 
     private void OnTriggerExit(Collider other)
