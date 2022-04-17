@@ -42,9 +42,17 @@ public class PlayerRobbingManager : MonoBehaviour
 
     bool canDecrease = false;
 
+    AudioSource audioSource;
+    [SerializeField] AudioClip clickSound;
+    [SerializeField] AudioClip pickSound;
+    [SerializeField] AudioClip backButtonSound;
+    [SerializeField] AudioClip panelOpenSound;
+    [SerializeField] AudioClip failSound;
+
     void Start()
     {
         mainCamera = Camera.main;
+        audioSource = GetComponent<AudioSource>();
         currentFillValue = maxFillValue;
         inventory = GetComponent<Inventory>();
         backButton.SetActive(false);
@@ -89,12 +97,16 @@ public class PlayerRobbingManager : MonoBehaviour
         currentFillValue = maxFillValue;
         UpdateStressBarFillAmounth();
 
+        audioSource.PlayOneShot(panelOpenSound, 1f);
+
         StartBagPasswordStateAnimation();
         Invoke("CanDecrease", 1f);
     }
 
     void RobbingFailed()
     {
+        audioSource.PlayOneShot(failSound, 1f);
+
         canDecrease = false;
         backButton.SetActive(false);
         collectedItems.Clear();
@@ -118,6 +130,8 @@ public class PlayerRobbingManager : MonoBehaviour
 
     public void FirstPasswordStagePassed(int value)
     {
+        audioSource.PlayOneShot(clickSound, 1f);
+
         if(value == npcColorIndex)
         {
             choosedColorIndex = value;
@@ -138,7 +152,9 @@ public class PlayerRobbingManager : MonoBehaviour
 
     public void SecondPasswordStagePassed(int value)
     {
-        if(value == npcTypeIndex)
+        audioSource.PlayOneShot(clickSound, 1f);
+
+        if (value == npcTypeIndex)
         {
             choosedTypeIndex = value;
             stage2Image.sprite = shapeSprites[value];
@@ -232,6 +248,8 @@ public class PlayerRobbingManager : MonoBehaviour
 
             if (selection.gameObject.CompareTag("Object"))
             {
+                audioSource.PlayOneShot(pickSound, 1f);
+
                 AddItemToList(selection.GetComponent<Item>());
                 selection.gameObject.SetActive(false);
                 DecreaseStressBarValue(55f);
@@ -257,6 +275,8 @@ public class PlayerRobbingManager : MonoBehaviour
 
     public void BackButton()
     {
+        audioSource.PlayOneShot(backButtonSound, 1f);
+
         RobbingSuccess();
         backButton.SetActive(false);
     }

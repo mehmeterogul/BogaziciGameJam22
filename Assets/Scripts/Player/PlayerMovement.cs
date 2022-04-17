@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 normalizedDelta;
 
     bool canWalk = true;
+    bool canSell = true;
 
     // Start is called before the first frame update
     void Start()
@@ -95,10 +96,17 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isRobbing", true);
         }
 
-        if (other.gameObject.CompareTag("SellArea"))
+        if (other.gameObject.CompareTag("SellArea") && canSell)
         {
             GetComponent<Inventory>().SellAll();
+            canSell = false;
+            Invoke("CanSell", 3f);
         }
+    }
+
+    void CanSell()
+    {
+        canSell = true;
     }
 
     private void OnTriggerExit(Collider other)

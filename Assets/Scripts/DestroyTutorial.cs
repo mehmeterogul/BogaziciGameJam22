@@ -7,6 +7,6 @@ public class DestroyTutorial : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 3);
+        Destroy(gameObject, 5);
     }
 }
