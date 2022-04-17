@@ -15,7 +15,8 @@ public class NPCSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("SpawnNPC", 1f);
+        SpawnNPC();
+        Invoke("SpawnNPC", 2f);
         nextTimeToSpawn = Time.time + spawnTime;
     }
 

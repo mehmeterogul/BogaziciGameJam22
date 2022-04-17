@@ -186,7 +186,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1027839630889839912}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -253,6 +253,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCanvas: {fileID: 0}
   bag: {fileID: 0}
+  passwordPick: {fileID: 0}
+  stage1Image: {fileID: 0}
+  stage2Image: {fileID: 0}
+  colorSprites:
+  - {fileID: 21300000, guid: 35f67f4941b25e84c8cd79362da76561, type: 3}
+  - {fileID: 21300000, guid: fc48b8ff75736ea40a97f4b607b4be70, type: 3}
+  - {fileID: 21300000, guid: a548b45c078b70c4391a66fc6fd94510, type: 3}
+  - {fileID: 21300000, guid: 454b19d1cb1b78640871453e0a209533, type: 3}
+  shapeSprites:
+  - {fileID: 21300000, guid: 2ba839dfe2b653649a0085c0830f392d, type: 3}
+  - {fileID: 21300000, guid: be29dbf60d4ff5b439182655b050bdeb, type: 3}
+  - {fileID: 21300000, guid: dac527020bafcb446afe3b366f421758, type: 3}
 --- !u!1 &1062840394053269597
 GameObject:
   m_ObjectHideFlags: 0

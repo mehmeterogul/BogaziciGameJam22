@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.CompareTag("NPC"))
         {
-            moveSpeed = moveSpeed / 2f;
+            moveSpeed = moveSpeed / 2.5f;
             animator.SetBool("isRobbing", true);
         }
     }

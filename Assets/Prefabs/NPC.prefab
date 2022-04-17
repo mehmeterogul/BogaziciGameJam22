@@ -187,7 +187,6 @@ GameObject:
   - component: {fileID: 1834567505}
   - component: {fileID: 6153113452489631675}
   - component: {fileID: 1629788452080981404}
-  - component: {fileID: 1660463700980731358}
   - component: {fileID: 1565467020596998874}
   m_Layer: 0
   m_Name: NPC
@@ -261,18 +260,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
---- !u!114 &1660463700980731358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5853670212893456603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0ecd653018337643a89cd31ffbd9fe6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1565467020596998874
 MonoBehaviour:
   m_ObjectHideFlags: 0

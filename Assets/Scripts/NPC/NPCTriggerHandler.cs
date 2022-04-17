@@ -11,11 +11,15 @@ public class NPCTriggerHandler : MonoBehaviour
     [SerializeField] float currentFillValue = 0f;
 
     bool canDecrease = false;
+
     GameManager gameManager;
+
+    bool canDestroy = false;
 
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        Invoke("SetCanDestroyTrue", 2f);
     }
 
     private void Update()
@@ -30,9 +34,22 @@ public class NPCTriggerHandler : MonoBehaviour
         }
     }
 
+    void SetCanDestroyTrue()
+    {
+        canDestroy = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        canDecrease = false;
+        if (other.gameObject.CompareTag("Player"))
+        {
+            canDecrease = false;
+        }
+
+        if(canDestroy && other.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -44,11 +61,10 @@ public class NPCTriggerHandler : MonoBehaviour
 
             if(currentFillValue == maxFillValue && gameManager.gameState == GameManager.STATE.WALKING)
             {
-                BagContent bag = GetComponent<BagContent>();
                 NPCRandomizer npcType = GetComponent<NPCRandomizer>();
 
                 gameManager.ChangeGameStateToRobbing();
-                other.gameObject.GetComponent<PlayerRobbingManager>().StartRobbing(bag, npcType.GetNPCTypeIndex(), npcType.GetNPCColor());
+                other.gameObject.GetComponent<PlayerRobbingManager>().StartRobbing(npcType.GetNPCTypeIndex(), npcType.GetNPCColor());
             }
         }
     }

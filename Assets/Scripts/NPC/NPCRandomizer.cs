@@ -31,8 +31,8 @@ public class NPCRandomizer : MonoBehaviour
         return choosedObjectIndex;
     }
 
-    public string GetNPCColor()
+    public int GetNPCColor()
     {
-        return npcMaterials[choosedColorIndex].name;
+        return choosedColorIndex;
     }
 }
