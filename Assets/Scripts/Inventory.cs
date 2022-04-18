@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] AudioClip sellSound;
 
     [SerializeField] GameObject toastTextPrefab;
-    [SerializeField] Transform gameCanvas;
+    [SerializeField] Transform toastCanvas;
 
     void Start()
     {
@@ -52,14 +52,14 @@ public class Inventory : MonoBehaviour
     {
         foreach (Item item in inventoryItems)
         {
-            audioSource.PlayOneShot(sellSound, 0.7f);
+            audioSource.PlayOneShot(sellSound, 0.4f);
 
-            GameObject temp = Instantiate(toastTextPrefab, gameCanvas.position, gameCanvas.rotation);
-            temp.transform.SetParent(gameCanvas);
-            temp.transform.localPosition = new Vector3(-540, -960, 0);
+            GameObject temp = Instantiate(toastTextPrefab, toastCanvas.position, toastCanvas.rotation);
+            temp.transform.SetParent(toastCanvas);
+            temp.transform.localPosition = new Vector3(0, -875, 0);
             toastTextPrefab.GetComponent<ToastText>().SetText(item.itemName + " sold");
             moneyManager.AddMoney(item.itemPrice);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.35f);
         }
 
         ClearInventory();

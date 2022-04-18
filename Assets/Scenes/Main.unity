@@ -495,7 +495,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -50, y: -50}
-  m_SizeDelta: {x: 500, y: 100}
+  m_SizeDelta: {x: 500, y: 150}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &196244817
 MonoBehaviour:
@@ -550,11 +550,11 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 12
+  m_characterSpacing: 20
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1162,6 +1162,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fdbbd34373fa81a40a2e133e25b0579c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fdbbd34373fa81a40a2e133e25b0579c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: fdbbd34373fa81a40a2e133e25b0579c,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fdbbd34373fa81a40a2e133e25b0579c,
         type: 3}
@@ -3638,8 +3653,8 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1080, y: 1920}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_ScreenMatchMode: 2
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -4547,7 +4562,18 @@ PrefabInstance:
         type: 3}
       propertyPath: gameCanvas
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 990020179093415854, guid: f99ce8053a0b16b48ba2929c1e336d04,
+        type: 3}
+      propertyPath: toastCanvas
+      value: 
       objectReference: {fileID: 1749674723}
+    - target: {fileID: 990020179093415854, guid: f99ce8053a0b16b48ba2929c1e336d04,
+        type: 3}
+      propertyPath: toastTextPrefab
+      value: 
+      objectReference: {fileID: 2229972118572367092, guid: 4fc4b5688c6947744b148a4fc8e12b4a,
+        type: 3}
     - target: {fileID: 1027839630889839912, guid: f99ce8053a0b16b48ba2929c1e336d04,
         type: 3}
       propertyPath: m_Name
@@ -4682,10 +4708,26 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 320548084}
+    - target: {fileID: 1009076041, guid: 4c102bf5cd0591d4aa0924b82f3720c7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1009076041, guid: 4c102bf5cd0591d4aa0924b82f3720c7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 1267860170, guid: 4c102bf5cd0591d4aa0924b82f3720c7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 320548084}
+    - target: {fileID: 1494948731, guid: 4c102bf5cd0591d4aa0924b82f3720c7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494948731, guid: 4c102bf5cd0591d4aa0924b82f3720c7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 1816978614, guid: 4c102bf5cd0591d4aa0924b82f3720c7, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

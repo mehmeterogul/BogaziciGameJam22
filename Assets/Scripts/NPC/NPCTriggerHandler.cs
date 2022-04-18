@@ -46,6 +46,11 @@ public class NPCTriggerHandler : MonoBehaviour
         {
             canDecrease = false;
         }
+
+        if (canDestroy && other.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject, 5f);
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -71,11 +76,9 @@ public class NPCTriggerHandler : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        canDecrease = true;
-
-        if (canDestroy && other.gameObject.CompareTag("Wall"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            canDecrease = true;
         }
     }
 
